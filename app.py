@@ -72,15 +72,17 @@ def validate():
         croppedImage, crop_message = autoCrop(image, faceDetected)
         
         response = jsonify({
-            'isFaceDetected': {"status": True if faceDetected else False, "message": error_message if error_message else "Valid"},
-            # 'isDateValid': {"status": isDateValid, "message": date_message},
-            'isExpressionValid': {"status": isExpressionValid, "message": expression_message if expression_message else "Valid"},
-            'isWearingGlasses': {"status": True if isWearingGlasses == False else False, "message": glasses_message if glasses_message else "Valid"},
-            'isLightingVisible': {"status": isLightingVisible, "message": light_message if light_message else "Valid"},
-            'isBgPassed': {"status": isBgPassed, "message": bg_message if bg_message else "Valid"},
-            'isColorVisible': {"status": isColorVisible, "message": color_message if color_message else "Valid"},
-            'isContrastVisible': {"status": isContrastVisible, "message": contrast_message if contrast_message else "Valid"},
-            'croppedImage': {"status": croppedImage, "message": crop_message if crop_message else "Valid"}
+            "validation": [
+                {"name": 'isFaceDetected', "status": True if faceDetected else False, "message": error_message if error_message else "Valid"},
+                # 'isDateValid': {"status": isDateValid, "message": date_message},
+                {"name": "isExpressionValid", "status": isExpressionValid, "message": expression_message if expression_message else "Valid"},
+                {"name": "isWearingGlasses", "status": True if isWearingGlasses == False else False, "message": glasses_message if glasses_message else "Valid"},
+                {"name": "isLightingVisible", "status": isLightingVisible, "message": light_message if light_message else "Valid"},
+                {"name": "isBgPassed", "status": isBgPassed, "message": bg_message if bg_message else "Valid"},
+                {"name": "isColorVisible", "status": isColorVisible, "message": color_message if color_message else "Valid"},
+                {"name": "isContrastVisible", "status": isContrastVisible, "message": contrast_message if contrast_message else "Valid"},
+                {"name": "croppedImage", "status": croppedImage, "message": crop_message if crop_message else "Valid"}
+            ]
         })
 
         os.remove("temp_image.jpg")
