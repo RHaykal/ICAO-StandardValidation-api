@@ -9,7 +9,8 @@ from dateValidation import get_date_taken
 from expressionValidation import _checkExpression
 from glassesValidation import checkGlasses
 from lightingValidation import computeImage
-from backgroundValidation import is_background_white
+# from backgroundValidation import is_background_white
+from backgroundValidation import checkBackground
 from colorValidation import _checkDynamicRange
 from contrastValidation import _checkContrast
 from autocropValidation import autoCrop
@@ -62,7 +63,7 @@ def validate():
         # 5. check for lighting
         isLightingVisible, light_message = computeImage(image, faceLandmarks)
         # 6. check for white background
-        isBgWhite, bg_message = is_background_white(image)
+        isBgPassed, bg_message = checkBackground(image)
         # 7. check color range
         isColorVisible, color_message = _checkDynamicRange(image, faceLandmarks)
         # 8. check photo contrast
@@ -72,11 +73,11 @@ def validate():
         
         response = jsonify({
             'isFaceDetected': {"status": True if faceDetected else False, "message": error_message if error_message else "Valid"},
-            'isDateValid': {"status": isDateValid, "message": date_message},
+            # 'isDateValid': {"status": isDateValid, "message": date_message},
             'isExpressionValid': {"status": isExpressionValid, "message": expression_message if expression_message else "Valid"},
             'isWearingGlasses': {"status": True if isWearingGlasses == False else False, "message": glasses_message if glasses_message else "Valid"},
             'isLightingVisible': {"status": isLightingVisible, "message": light_message if light_message else "Valid"},
-            'isBgWhite': {"status": isBgWhite, "message": bg_message if bg_message else "Valid"},
+            'isBgPassed': {"status": isBgPassed, "message": bg_message if bg_message else "Valid"},
             'isColorVisible': {"status": isColorVisible, "message": color_message if color_message else "Valid"},
             'isContrastVisible': {"status": isContrastVisible, "message": contrast_message if contrast_message else "Valid"},
             'croppedImage': {"status": croppedImage, "message": crop_message if crop_message else "Valid"}
