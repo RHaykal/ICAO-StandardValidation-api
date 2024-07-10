@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 import io
 import os
+import numpy as np
 from faceDetection import getFacialLandmarks
 from dateValidation import get_date_taken
 from expressionValidation import _checkExpression
@@ -41,10 +42,11 @@ def validate():
         
         # Load the image using PIL and save the loaded image to get the path for face detection function
         image = Image.open(convertedPhoto)
-        temp_file_path = image.save("temp_image.jpg")
+        img_array = np.array(image)
+        # temp_file_path = image.save("temp_image.jpg")
 
         # 1. detect face
-        (face_data, error_message) = getFacialLandmarks("temp_image.jpg")
+        (face_data, error_message) = getFacialLandmarks(img_array)
         if error_message:
             response = jsonify({
                 "message": error_message,
@@ -85,7 +87,7 @@ def validate():
             ]
         })
 
-        os.remove("temp_image.jpg")
+        # os.remove("temp_image.jpg")
 
         return response
     except Exception as e:

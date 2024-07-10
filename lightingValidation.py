@@ -55,7 +55,7 @@ def computeImage(image, shape):
         if (min(blueValues) >= 0.5 * max(blueValues) and min(greenValues) >= 0.5 * max(greenValues) and min(redValues) >= 0.5 * max(redValues)) or (min(blueLN) >= 0.5 * max(blueLN) and min(greenLN) >= 0.5 * max(greenLN) and min(redLN) >= 0.5 * max(redLN) and len(blueLN) > 2):
             return True, None
         elif len(blueLN) < 3:
-            return False, "Failed:  Not enough homogeneous facial zones."
+            return False, "Pencahayaan Wajah Tidak Sesuai Dengan Standard. Harap Mengganti Dengan Foto Lain"
         else:
             return False, "Terdapat perbedaan cahaya dalam foto ini. Harap mengganti dengan foto lain"
     except Exception as e:

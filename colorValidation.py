@@ -52,20 +52,7 @@ def _checkDynamicRange(image, facial_landmarks):
         if red and green and blue:
             return True, None
         else:
-            message = "Check failed.\n"
-            if not red:
-                message += ("Red only %.1f %%\n" % ((count_rgb["red"]/256)*100))
-            else:
-                message += ("Red: %.1f %%\n" % ((count_rgb["red"]/256)*100))
-            if not green:
-                message += ("Green only %.1f %%\n" % ((count_rgb["green"]/256)*100))
-            else:
-                message += ("Green: %.1f %%\n" % ((count_rgb["green"]/256)*100))
-            if not blue:
-                message += ("Blue only %.1f %%\n Intesity Variation" % ((count_rgb["blue"]/256)*100))
-            else:
-                message += ("Blue: %.1f %%\n Intesity Variation" % ((count_rgb["blue"]/256)*100))
-
+            message = "Warna Foto Tidak Memenuhi Standard. Harap Ganti Foto Lain"
             return False, message
     except Exception as e:
         return False, f"Gagal Mendeteksi warna foto: {str(e)}"

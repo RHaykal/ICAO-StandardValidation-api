@@ -52,7 +52,7 @@ def autoCrop(image, rect):
 
             return True, image_base64
     except Exception as e:
-        return False, f"Gagal melakukan cropping foto: {str(e)}"
+        return False, f"Gagal melakukan cropping foto."
 
 def pil_image_to_base64(img):
     try:
@@ -70,4 +70,4 @@ def pil_image_to_base64(img):
         
         return base64_string
     except Exception as e:
-        return f"Gagal mengconvert foto menjadi base64: {str(e)}"
+        return f"Gagal Melakukan Konversi Foto. Harap Mengganti Foto Dengan Format JPEG"
