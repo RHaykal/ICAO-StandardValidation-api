@@ -16,6 +16,27 @@ def checkBackground(image):
         #read image and convert to gray
         # image_data = cv2.imread(open_cv_image.image_path + open_cv_image.image_name )
         image_gray = cv2.cvtColor(open_cv_image,cv2.COLOR_BGR2GRAY)
+
+        # Check if the image has a white background
+        white_background_threshold = 200  # Threshold to consider a pixel as white
+        white_background_max_percentage_threshold = 0.55  # Percentage of maximum pixels that should be white
+        white_background_min_percentage_threshold = 0.30 # Percentage of minimum pixels that should be white
+
+        #checking the red, green, and blue value for detecting white pixels
+        white_pixels = numpy.sum(
+            (open_cv_image[:, :, 0] > white_background_threshold) &
+            (open_cv_image[:, :, 1] > white_background_threshold) &
+            (open_cv_image[:, :, 2] > white_background_threshold)
+        )
+        total_pixels = open_cv_image.shape[0] * open_cv_image.shape[1]
+        white_background_percentage = white_pixels / total_pixels
+
+        # white_pixels = numpy.sum(image_gray > white_background_threshold)
+        # total_pixels = image_gray.size
+        # white_background_percentage = white_pixels / total_pixels
+
+        if not (white_background_min_percentage_threshold <= white_background_percentage <= white_background_max_percentage_threshold):
+            return False, f"Background tidak sesuai. Harap pilih foto dengan latar belakang putih/Foto yang menggunakan baju selain putih. {str(white_pixels), str(total_pixels), str(white_background_percentage), str(white_background_max_percentage_threshold), str(white_background_min_percentage_threshold)}"
         
         #edge detection
         image_filter = cv2.Canny(image_gray,10,80)
@@ -108,10 +129,12 @@ def checkBackground(image):
         background_inconform_pixels_percentage = background_inconform_pixels / image_gray.size
 
         #check if the check passed or not
-        return True, None
         if background_inconform_pixels_percentage > 0.02 :
             if entropy > 1:
+                return False, "Struktur data foto terdeteksi bermasalah. Harap pilih foto lain"
+            else :
                 return False, "Background tidak sesuai. Harap pilih foto lain"
+        return True, None
     except Exception as e:
         return False, f"Gagal Membaca background foto: {str(e)}"
 

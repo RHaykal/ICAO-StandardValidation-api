@@ -20,4 +20,4 @@ def getFacialLandmarks(image_path):
             landmarks = np.array([[p.x, p.y] for p in sp.parts()])
             return (rect, landmarks), None
     except Exception as e:
-        return None, f"gagal mendeteksi wajah: {str(e)}"
+        return None, f"Gagal mendeteksi wajah: {str(e)}"
