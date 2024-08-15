@@ -19,7 +19,7 @@ def checkBackground(image):
 
         # Check if the image has a white background
         white_background_threshold = 200  # Threshold to consider a pixel as white
-        white_background_max_percentage_threshold = 0.55  # Percentage of maximum pixels that should be white
+        white_background_max_percentage_threshold = 0.57  # Percentage of maximum pixels that should be white
         white_background_min_percentage_threshold = 0.30 # Percentage of minimum pixels that should be white
 
         #checking the red, green, and blue value for detecting white pixels
@@ -129,11 +129,12 @@ def checkBackground(image):
         background_inconform_pixels_percentage = background_inconform_pixels / image_gray.size
 
         #check if the check passed or not
-        if background_inconform_pixels_percentage > 0.02 :
-            if entropy > 1:
-                return False, "Struktur data foto terdeteksi bermasalah. Harap pilih foto lain"
-            else :
-                return False, "Background tidak sesuai. Harap pilih foto lain"
+        # if background_inconform_pixels_percentage > 0.02 :
+        if background_inconform_pixels_percentage > 0.25 :
+            # if entropy > 1:
+            #     return False, "Struktur data foto terdeteksi bermasalah. Harap pilih foto lain"
+            # else :
+            return False, f"Background tidak sesuai. Harap pilih foto lain {str(background_inconform_pixels_percentage)}"
         return True, None
     except Exception as e:
         return False, f"Gagal Membaca background foto: {str(e)}"

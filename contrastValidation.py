@@ -38,7 +38,7 @@ def _checkContrast(image, facial_landmarks):
         #check if the check passed or not
         check = True
         if (contrast_local <= 60 or average_deviation <= 45 or average_deviation >= 100 or contrast_global <= 200):
-            check = "Foto Tidak Memiliki Kontras yang Sesuai Standard. Harap Gunakan Foto Lain"
+            check = f"Foto Tidak Memiliki Kontras yang Sesuai Standard. Harap Gunakan Foto Lain {str(contrast_local), str(average_deviation), str(average_deviation), str(contrast_global),}"
 
         if check == True:
             return True, None 

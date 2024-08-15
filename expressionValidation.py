@@ -82,11 +82,12 @@ def _checkExpression(shape):
         #set this height in relation
         noSmileFeatureLeft = abs(height54_62/height_8_24)
         #check whether the person smile or has another not neutral expression
-        if noSmileFeature <= 0.023:
-            if noSmileFeatureRight <=0.041 and noSmileFeatureLeft <=0.041:
-                no_smile = True
-            else:
-                no_smile = False
+        if noSmileFeature <= 0.025:
+            no_smile = True
+            # if noSmileFeatureRight <=0.041 and noSmileFeatureLeft <=0.041:
+            #     no_smile = True
+            # else:
+            #     no_smile = False
         else:
             no_smile = False
 
@@ -144,7 +145,7 @@ def _checkExpression(shape):
         elif no_raisingEyebrows == False:
             return False, "Ekspresi tidak netral karena alis tidak terdeteksi"
         elif no_smile == False:
-            return False, "Ekspresi tidak netral. Harap ganti foto lain"
+            return False, f"Ekspresi tidak netral. Harap ganti foto lain {str(no_smile), str(noSmileFeature)}"
 
         # return output_text
     except Exception as e:
